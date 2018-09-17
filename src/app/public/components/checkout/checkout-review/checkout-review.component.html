@@ -1,0 +1,57 @@
+<div class="checkout__review m-top-30 ">
+    <form *ngIf="cartItems.length > 0; else emptyCart">
+        <h3 class="checkout__review-title">Your order</h3>
+        <table class="checkout__review-table">
+            <thead>
+                <tr>
+                    <th class="t-product-name">Product</th>
+                    <th class="product-total">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cart_item" *ngFor="let item of cartItems">
+                    <td class="t-product-name">{{item?.product?.name}}
+                        <strong class="product-quantity">&nbsp;× {{item?.quantity}}</strong>
+                    </td>
+                    <td class="t-product-price">
+                        <span *ngIf="item?.product?.price !== item?.product?.promotion_price">
+                            {{(item?.product?.promotion_price * item?.quantity) |currency:'USD':'symbol':'1.0-3' }}
+                        </span>
+                        <span *ngIf="item?.product?.price === item?.product?.promotion_price">
+                            {{(item?.product?.price * item?.quantity) |currency:'USD':'symbol':'1.0-3' }}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Subtotal</th>
+                    <td>
+                        <span>{{totalPrice|currency:'USD':'symbol':'1.0-3'}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Shipping</th>
+                    <td>Free shipping</td>
+                </tr>
+                <tr>
+                    <th>VAT</th>
+                    <td>{{(totalPrice/100*10)|currency:'USD':'symbol':'1.0-3'}}</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td style="color: red">
+                        <strong>
+                            <span>{{ (totalPrice + totalPrice/100*10) |currency:'USD':'symbol':'1.0-3'}}</span>
+                        </strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+    <ng-template #emptyCart>
+        <div class="alert alert-danger" role="alert">
+            <strong>Your cart is currently empty</strong>
+        </div>
+    </ng-template>
+</div>

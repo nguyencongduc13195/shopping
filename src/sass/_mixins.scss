@@ -1,0 +1,36 @@
+@mixin margin($position, $size) {
+    @if($position == top){
+        margin-top: $size;
+    }
+    @if($position == bottom){
+        margin-bottom: $size;
+    }
+    @if($position == left){
+        margin-left: $size;
+    }
+    @if($position == right){
+        margin-right: $size;
+    }
+}
+
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+$spaceamounts: (5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100); // Adjust this to include the pixel amounts you need.
+$sides: (top, bottom, left, right); // Leave this variable alone
+
+@each $space in $spaceamounts {
+  @each $side in $sides {
+    .m-#{$side}-#{$space} {
+      margin-#{$side}: #{$space}px !important;
+    }
+  
+    .p-#{$side}-#{$space} {
+      padding-#{$side}: #{$space}px !important;
+    }
+  }
+}

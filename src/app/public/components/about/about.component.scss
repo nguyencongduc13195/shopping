@@ -1,0 +1,128 @@
+// @import "../../../../sass/variables";   
+@import "~src/sass/variables";   
+.about{
+    &__company{
+        h2{
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        p{
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        a{
+            padding: 1rem 2rem;
+            border-radius: .5rem;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            transition: all .3s ease-in-out;
+            background: $color-secondary;
+            &:hover{    
+                background-color: $color-primary;
+            }
+        }
+    }
+    &__team{
+        padding: 10rem 0;
+        &-title{
+            text-align: center;
+            h2{
+                font-family: "bebasneue";
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                text-transform: uppercase;
+                font-weight: 600;
+                letter-spacing: 3px;
+            }
+            p{
+                font-size: 1.3rem;
+            }
+        }
+        &-img{
+            position: relative;
+        }
+        &-single{
+            margin-top: 3rem;
+        }
+        &-single:hover &-social{
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        &-social{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            padding: 1rem 0;
+            ul{
+                margin-bottom: 0;
+            }
+            li{
+                display: inline-block;
+                margin: 0 .3rem;
+            }
+            a{
+                background: $color-primary;
+                border-radius: 100%;
+                color: $color-white;
+                display: block;
+                font-size: 1.4rem;
+                height: 3.8rem;
+                line-height: 3.8rem;
+                width: 3.8rem;
+                -webkit-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    background-color: $color-secondary;
+                }
+            }
+        }
+        &-info{
+            background: #f1f1f1 none repeat scroll 0 0;
+            padding: 1rem 0;
+            text-align: center;
+            h3{
+                text-transform: uppercase;
+            }
+            p{
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
+.testimonials{
+    padding: 9rem 0;
+    background-color: #f1f1f1;
+    &__slider{
+        &-item{
+            img{
+                border-radius: 50%;
+            }
+            p{
+                margin: 2rem 0 3rem;
+                font-size: 1.8rem;
+            }
+            h4{
+                font-size: 2rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                margin: 0;
+            }
+            span{
+                color: #666666;
+                font-size: 1.4rem;
+                font-style: italic;
+                font-weight: 400;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

@@ -1,0 +1,195 @@
+<div class="menu py-4 px-4 py-lg-0 px-lg-5">
+	<div class="menu__logo">
+		<a [routerLink]="['/']" style="color: #222">angular</a>
+		<!-- <img src="img/logo/logo.png" alt=""> -->
+	</div>
+	<div class="menu__main d-none d-lg-block">
+		<nav>
+			<ul class="menu__main--list">
+				<li class="menu__main--parent">
+					<a href="index.html" class="menu__main--title">Home
+						<i class="fa fa-angle-down"></i>
+					</a>
+					<ul class="menu__main--dropdown-menu">
+						<li>
+							<a href="index.html">Home Page 1</a>
+						</li>
+						<li>
+							<a href="index-2.html">Home Page 2</a>
+						</li>
+						<li>
+							<a href="index-3.html">Home Page 3</a>
+						</li>
+						<li>
+							<a href="index-4.html">Home Page 4</a>
+						</li>
+						<li>
+							<a href="index-5.html">Home Page 5</a>
+						</li>
+						<li>
+							<a href="index-6.html">Home Page 6</a>
+						</li>
+					</ul>
+				</li>
+				<li routerLinkActive="active">
+					<a class="menu__main--title" [routerLink]="['/categories']">accessories</a>
+				</li>
+				<li routerLinkActive="active">
+					<a class="menu__main--title" [routerLink]="['/categories']">Special Offers</a>
+				</li>
+				<li routerLinkActive="active">
+					<a class="menu__main--title" [routerLink]="['/about-us']">About us</a>
+				</li>
+				<li routerLinkActive="active">
+					<a class="menu__main--title" [routerLink]="['/contact']">Contact us</a>
+				</li>
+				<li routerLinkActive="active">
+					<a class="menu__main--title" [routerLink]="['/categories']">Blog</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="menu__right">
+		<div class="menu__right--search" (click)="onSearchEvent()">
+			<i class="fa fa-search"></i>
+		</div>
+		<div class="menu__right--setting">
+			<i class="fa fa-cog" (click)="isShowAccount = !isShowAccount" (click)="showOptionsNavbar('account')"></i>
+			<div class="menu__right--setting-sub" [class.show]="isShowAccount" *ngIf="!(authenticated$ | async ); else loggin">
+				<button>My Account
+					<i class="fa fa-chevron-down"></i>
+				</button>
+				<ul class="menu__right--setting-list">
+					<li>
+						<a (click)="openLoginScreen()">Login</a>
+					</li>
+					<li>
+						<a [routerLink]="['/register']">Register</a>
+					</li>
+				</ul>
+			</div>
+			<ng-template #loggin>
+				<div class="menu__right--setting-sub" [class.show]="isShowAccount">
+					<button>Information&nbsp;
+						<i class="fa fa-chevron-down"></i>
+					</button>
+					<ul class="menu__right--setting-list">
+						<li>
+							<a [routerLink]="['/my-info']">{{user?.full_name}}</a>
+						</li>
+						<li *ngIf="user?.level === 'Admin'">
+							<a [routerLink]="['/admin']">Admin Page</a>
+						</li>
+						<li>
+							<a>My Order</a>
+						</li>
+						<li (click)="logOutEvent()">
+							<a>Log Out</a>
+						</li>
+					</ul>
+				</div>
+			</ng-template>
+		</div>
+		<div class="menu__right--love">
+			<i class="fa fa-heart" title="Loved Products"></i>
+			<span class="menu__right--count">{{ totalQtyLoveProducts?.length}}</span>
+		</div>
+		<div class="menu__right--cart" [class.show]="isShowCart">
+			<i class="fa fa-shopping-cart" (click)="isShowCart = !isShowCart" (click)="showOptionsNavbar('cart')"></i>
+			<span class="menu__right--count">{{totalQty}}</span>
+			<ul class="menu__right--sub-cart">
+				<li class="menu__right--single-item" *ngFor="let item of cart">
+					<div class="menu__right--img">
+						<img class="img-fluid" src="https://apimean.herokuapp.com/api/product/images-detail/{{item?.product?.image}}">
+					</div>
+					<div class="menu__right--info">
+						<span class="menu__right--info-name">{{item?.product?.name}}</span>
+						<span class="menu__right--info-quantity">x {{item?.quantity}}</span>
+						<span class="menu__right--info-subtotal" *ngIf="item?.product?.price !== item?.product?.promotion_price">
+							{{item?.product?.promotion_price |currency:'VND':'symbol':'1.0-3' }}
+							<i class="fa fa-times" (click)="removeItem(item)"></i>
+						</span>
+						<span class="menu__right--info-subtotal" *ngIf="item?.product?.price === item?.product?.promotion_price">
+							{{item?.product?.price |currency:'VND':'symbol':'1.0-3' }}
+						</span>
+						<div>Size: {{item?.size }}</div>
+						<div>Color: {{item?.color }}</div>
+					</div>
+				</li>
+				<li class="menu__right--cart-total">
+					<h5>Sub-total:
+						<span class="float-right">{{totalPrice|currency:'VND':'symbol':'1.0-3'}}</span>
+					</h5>
+					<h5>VAT(10%):
+						<span class="float-right">{{(totalPrice/100*10)|currency:'VND':'symbol':'1.0-3'}}</span>
+					</h5>
+					<h5>Total:
+						<span class="float-right">{{ (totalPrice+(totalPrice/100*10))|currency:'VND':'symbol':'1.0-3' }}</span>
+					</h5>
+				</li>
+				<li class="menu__right--cart-button">
+					<a [routerLink]="['/cart']">view cart</a>
+					<a [routerLink]="['/checkout']">checkout</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="menu__mobile d-block d-lg-none">
+		<a class="menu__mobile--button" (click)="isOpenMenu = !isOpenMenu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</a>
+		<!-- <a class="menu__mobile--button closed">
+					x
+				</a> -->
+		<nav class="menu__mobile--list" *ngIf="isOpenMenu">
+			<ul>
+				<li class="menu__mobile--parent">
+					<a href="index.html" class="menu__mobile--title">Home</a>
+					<a class="menu__mobile--expand pull-right" (click)="isOpen = !isOpen">
+						{{ !isOpen ? '+' : '-'}}
+					</a>
+					<div class="clearfix"></div>
+					<ul class="menu__mobile--dropdown-menu" [ngClass]="{'d-none': !isOpen, 'd-block': isOpen}">
+						<li>
+							<a href="index.html">Home Page 1</a>
+						</li>
+						<li>
+							<a href="index-2.html">Home Page 2</a>
+						</li>
+						<li>
+							<a href="index-3.html">Home Page 3</a>
+						</li>
+						<li>
+							<a href="index-4.html">Home Page 4</a>
+						</li>
+						<li>
+							<a href="index-5.html">Home Page 5</a>
+						</li>
+						<li>
+							<a href="index-6.html">Home Page 6</a>
+						</li>
+					</ul>
+				</li>
+				<li class="menu__mobile--parent">
+					<a class="menu__mobile--title">accessories</a>
+				</li>
+				<li class="menu__mobile--parent">
+					<a class="menu__mobile--title">Special Offers</a>
+				</li>
+				<li class="menu__mobile--parent">
+					<a class="menu__mobile--title">About us</a>
+				</li>
+				<li class="menu__mobile--parent">
+					<a class="menu__mobile--title">Contact us</a>
+				</li>
+				<li class="menu__mobile--parent">
+					<a class="menu__mobile--title">Blog</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</div>
+
+<!-- <app-modal-login (isCloseModal)="getCloseModal($event)" [openModal]='isOpenModal'></app-modal-login> -->

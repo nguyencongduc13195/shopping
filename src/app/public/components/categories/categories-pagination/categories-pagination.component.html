@@ -1,0 +1,11 @@
+<div class="content__paginations p-top-40 m-top-40">
+    <div class="row">
+      <div class="col-12">
+        <ul>
+          <li *ngFor="let item of totalPage" (click)="setPage(item)">
+            <a [class.active]="item === pageIndex">{{item}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,37 @@
+<div class="quickview" *ngIf="showQuickView">
+	<button type="button" class="btn btn-default remove" (click)="removeQuickview()"><i class="glyphicon glyphicon-remove"></i></button>
+	<div class="row detailquickview">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<img
+				src="https://apimean.herokuapp.com/api/product/images-detail/{{mainImage}}" 
+				class="img-responsive mainimage"/>
+			<div class="row images">
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" 
+					(mouseenter)="onChangeImage(item)"
+					(mouseleave)="onSetImageDefault(item)"
+					 *ngFor="let item of quickViewproduct?.image_Detail">
+					<img
+					src="https://apimean.herokuapp.com/api/product/images-detail/{{item}}" 
+					class="img-responsive detailimage"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<p class="nameproduct">{{quickViewproduct?.name}}</p>
+			<h4 class="price" *ngIf="quickViewproduct?.price !== quickViewproduct?.promotion_price; else nosale">
+				{{quickViewproduct?.promotion_price | currency:'VND':'symbol':'1.0-3'}} 
+				<span class="promotionprice"><del>{{quickViewproduct?.price | currency:'VND':'symbol':'1.0-3'}}</del></span>
+			</h4>
+			<ng-template #nosale>
+				<h4 class="price">
+					{{quickViewproduct?.price | currency:'VND':'symbol':'1.0-3'}} 
+				</h4>
+			</ng-template>
+			<div class="description" [innerHTML]="quickViewproduct?.description"></div>
+			<button class="cart" (click)="addToCart(quickViewproduct)">Thêm vào giỏ</button>
+		</div>
+	</div>
+</div>
+
+<div class="rgb" *ngIf="showQuickView">
+</div>

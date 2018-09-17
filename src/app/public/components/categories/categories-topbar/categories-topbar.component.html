@@ -1,0 +1,30 @@
+<div class="content__topbar p-top-100">
+  <div class="content__topbar-inner">
+    <div class="content__topbar-inner-viewmode">
+      <ul>
+        <li [class.active]="(viewMode$ | async) === 'grid'" (click)="viewModeEvent('grid')">
+          <i class="fa fa-th"></i>
+        </li>
+        <li [class.active]="(viewMode$ | async) === 'list'" (click)="viewModeEvent('list')">
+          <i class="fa fa-th-list"></i>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="content__topbar-inner-total">
+      <span>Showing 1 to 9 of 15</span>
+    </div> -->
+  </div>
+  <div class="content__topbar-filter">
+    <input type="text" (keyup)="onFilter(val.value)" #val placeholder="Please input product name...">
+  </div>
+  <div class="content__topbar-select">
+    <label class="d-none d-md-inline">Sort by</label>
+    <select #value (change)="onChangeSelect(value.value)">
+      <option value="1">Name (A - Z)</option>
+      <option value="2">Name (Z - A)</option>
+      <option value="3">Price (Low - High)</option>
+      <option value="4">Price (High - Low)</option>
+      <option value="5">Rating (High - Low)</option>
+    </select>
+  </div>
+</div>

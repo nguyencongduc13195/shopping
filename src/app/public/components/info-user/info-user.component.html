@@ -1,0 +1,151 @@
+<app-confirm-screen (agree)="getConfirm($event)"></app-confirm-screen>
+<app-navbar></app-navbar>
+<app-breadcrumb></app-breadcrumb>
+<div class="container-fluid">
+	<div class="info p-top-100 p-bottom-100">
+		<div class="row">
+			<div class="col-md-12 offset-lg-1 col-lg-2 mb-sm-4 mb-lg-0">
+				<ul class="info__list">
+					<li (click)="onClick(1)">
+						<a [class.active]="isActive === 1">Dashboard</a>
+					</li>
+					<li (click)="onClick(2)">
+						<a [class.active]="isActive === 2">Orders</a>
+					</li>
+					<li (click)="onClick(3)">
+						<a [class.active]="isActive === 3">Addresses</a>
+					</li>
+					<li (click)="onClick(4)">
+						<a [class.active]="isActive === 4">Account Details</a>
+					</li>
+					<li (click)="onLogout()">
+						<a>Logout</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-12 col-lg-9">
+				<div class="info__content">
+					<div class="info__dashboard info__content-abs" [ngClass]="{'show':isActive === 1, 'hide': isActive !== 1}">
+						<h3 class="info__title">Dashboard</h3>
+						<P>From your account dashboard. you can easily check & view your Recent Orders, manage your Shipping And Billing Addresses
+							and Edit Your Password And Account Details.</P>
+					</div>
+					<div class="info__orders info__content-abs" [ngClass]="{'show':isActive === 2, 'hide': isActive !== 2}">
+						<h3 class="info__title">Orders</h3>
+						<ng-container *ngIf="orders?.length>0; else empty">
+							<table class="table table-responsive">
+								<ng-container *ngIf="!viewDetail; else view">
+									<thead class="head-default">
+										<tr>
+											<th>Order</th>
+											<th>Date</th>
+											<th>Status</th>
+											<th>Total</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let order of orders; let i = index">
+											<td>{{ i + 1 }}</td>
+											<td>{{ order?.created_at | date:'MM/dd/yyyy' }}</td>
+											<td>{{ order?.confirm ? 'Confirmed' : 'Processing' }}</td>
+											<td>{{order?.total| currency:'USD':'symbol':'1.0-3'}}</td>
+											<td>
+												<a class="info__btn" (click)="onViewOrder(order)">
+													View
+												</a>
+												<a class="m-left-5 info__btn" (click)="onCancelOrder(order?._id)">
+													Cancel
+												</a>
+											</td>
+										</tr>
+									</tbody>
+								</ng-container>
+								<ng-template #view>
+									<thead class="head-default">
+										<tr>
+											<th style="cursor: pointer;" class="info__detail" (click)="onBack()">
+												<i class="fa fa-arrow-left"></i>&nbsp;Back
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="info__detail" *ngFor="let item of singleOrder['orderItem'][0]['slug']">
+												{{item}}
+												<br>
+												<a class="info__btn" [routerLink]="['/product',item]">View Product</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="info__detail" *ngFor="let item of singleOrder['orderItem'][0]['color']">Color: {{item}}</td>
+										</tr>
+										<tr>
+											<td class="info__detail" *ngFor="let item of singleOrder['orderItem'][0]['size']">Size: {{item}}</td>
+										</tr>
+										<tr>
+											<td class="info__detail" *ngFor="let item of singleOrder['orderItem'][0]['quantity']">Quantity: {{item}}</td>
+										</tr>
+									</tbody>
+								</ng-template>
+							</table>
+						</ng-container>
+						<ng-template #empty>
+							<div class="alert alert-danger" role="alert">
+								<strong>User not have any order.</strong>
+							</div>
+						</ng-template>
+					</div>
+					<div class="info__addresses info__content-abs" [ngClass]="{'show':isActive === 3, 'hide': isActive !== 3}">
+						<span>The following addresses will be used on the checkout page by default.</span>
+						<h4>Billing address</h4>
+						<a class="info__btn" (click)="isEdittingAddress = !isEdittingAddress">
+							{{!isEdittingAddress ? 'Edit' : 'Cancel'}}
+						</a>
+						<br>
+						<p *ngIf="!isEdittingAddress; else edit">{{ userEdit?.address ? userEdit?.address : "Your address doesn't have updated"}}</p>
+						<ng-template #edit>
+							<input type="text" name="txtPhone" [(ngModel)]="userEdit.address">
+							<input type="button" value="Update" (click)="updateAddressEvent()">
+						</ng-template>
+					</div>
+					<div class="info__account info__content-abs" [ngClass]="{'show':isActive === 4, 'hide': isActive !== 4}">
+						<h3 class="info__title">Account Details</h3>
+						<div class="alert alert-success info__account-alert" *ngIf="isUpdatedUser">
+							<strong>{{ msg }}</strong>
+						</div>
+						<form [formGroup]="formEdit" (ngSubmit)="submitEdit(formEdit.value)">
+							<div class="info__account-single">
+								<label>Full Name</label>
+								<input type="text" formControlName="txtFullName" name="txtFullName">
+							</div>
+							<div class="info__account-single">
+								<label>Phone</label>
+								<input type="number" formControlName="txtPhone" name="txtPhone">
+							</div>
+							<div class="info__account-single">
+								<!-- <input type="text" formControlName="txtAddress" name="txtPhone" [(ngModel)]="userEdit.address"> -->
+								<label>Gender</label>
+								<div class="radio">
+									<label class="m-right-10">
+										<input type="radio" name="rdoGender" value="Male" formControlName="rdoGender" /> Male
+									</label>
+									<label>
+										<input type="radio" name="rdoGender" value="Fermale" formControlName="rdoGender" /> Fermale
+									</label>
+								</div>
+							</div>
+							<div class="info__account-single">
+								<label>BirthDay</label>
+								<input type="date" name="txtBirthday" formControlName="txtBirthday" />
+							</div>
+							<div class="clearfix"></div>
+							<button type="submit" class="info__account-btn" [class.info__account-btn-disabled]="formEdit.invalid|| !formEdit?.touched">Update</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-footer-2></app-footer-2>

@@ -1,0 +1,87 @@
+@import '~src/sass/variables';
+.contact{
+    font-size: 1.4rem;
+    h3{
+        font-size: 2.4rem;
+        margin-bottom: 3rem;
+    }
+    &__form{
+        margin-top: 10rem;
+        &-wrap{
+            padding: 2rem 3rem;
+        }
+        &-title{
+           
+        }
+        &-inner{
+            width: 50%;
+            float: left;
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+            &:nth-child(odd){
+                padding-left: 0;
+            }
+            input {
+                width: 100%;
+                height: 4.5rem;
+                padding-left: 1.5rem;
+                border: 1px solid #dddddd;
+                outline: none;
+            }
+            &--area{
+                width: 100%;
+            }
+            textarea{
+                width: 100%;
+                padding: 1rem;
+                border: 1px solid #dddddd;
+                height: 13rem;
+                outline: none;
+            }
+        }
+        &-submit{
+            cursor: pointer;
+            border: none;
+            background:$color-secondary;
+            color: $color-white;
+            padding: 1rem 3rem;
+            border-radius: .5rem;
+            transition: background-color .3s ease-in-out;
+            &:hover{
+                background-color:$color-primary;
+            }
+        }
+    }
+    &__info{
+        margin-top: 10rem;
+        background: #f2f2f2;
+        padding: 2rem 3rem;
+        &-description{
+            margin-bottom: 3rem;
+        }
+        &-address{
+            ul{
+                margin-bottom: 0;
+            }
+            li{
+                border-top: 1px solid #e4e4e4;
+                font-size: 1.4rem;
+                padding: 1rem 0;
+                i{
+                    height: 4rem;
+                    line-height: 4rem;
+                    text-align: center;
+                    width: 4rem;
+                }
+            }
+        }
+        &-hours{
+            h3{
+                margin: 1rem 0;
+            }
+            strong{
+                font-size: 1.3rem;
+            }
+        }
+    }
+}

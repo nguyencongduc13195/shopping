@@ -1,0 +1,197 @@
+<app-navbar></app-navbar>
+<app-breadcrumb></app-breadcrumb>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 col-12">
+			<div class="col-12 m-top-20" *ngIf="success_register">
+				<div class="{{msgClass}}">
+					{{msg}}
+				</div>
+			</div>
+			<div class="wrapper">
+				<h2 class="m-bottom-20">Register</h2>
+				<form [formGroup]="formRegister" (ngSubmit)="onRegister(formRegister.value)">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-user"></i>
+							</span>
+						</div>
+						<input autocomplete="off" type="text" formControlName="txtFullName" class="form-control" [ngClass]="{
+								'is-invalid': formRegister.controls.txtFullName?.errors &&  formRegister.controls.txtFullName.touched,
+								 'is-valid' : !formRegister.controls.txtFullName?.errors
+							}" name="txtFullName" placeholder="Your Full-name.">
+						<span class="invalid-feedback" *ngIf="formRegister.controls.txtFullName?.errors?.required && formRegister.controls.txtFullName.touched">
+							Please enter your full-name.</span>
+						<span class="invalid-feedback" *ngIf="(formRegister.controls.txtFullName?.errors?.minlength || formRegister.controls.txtFullName?.errors?.maxlength)  && formRegister.controls.txtFullName.touched">
+							Please enter your full-name from 10 -> 30 letters.</span>
+					</div>
+					<br>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-envelope"></i>
+							</span>
+						</div>
+						<input autocomplete="off" type="email" formControlName="txtEmail" class="form-control" (change)="onCheckEmail()" [ngClass]="{
+								'is-invalid': (formRegister.controls.txtEmail?.errors &&  formRegister.controls.txtEmail.touched) || !existingEmail,
+								 'is-valid' :!formRegister.controls.txtEmail?.errors
+								}" name="txtFullName" placeholder="Your Email Address.">
+						<span class="invalid-feedback" *ngIf="formRegister.controls.txtEmail?.errors?.required && formRegister.controls.txtEmail.touched">
+							Please enter your Email.</span>
+						<span class="invalid-feedback" *ngIf="!formRegister.controls.txtEmail?.errors?.required && formRegister.controls.txtEmail?.errors?.email && formRegister.controls.txtEmail.touched">
+							Your Email is invalid format.</span>
+						<span [ngClass]="{'invalid-feedback': !existingEmail, 'valid-feedback': existingEmail }" *ngIf="!formRegister.controls.txtEmail?.errors && formRegister.controls.txtEmail.dirty">
+							{{ existingEmail ? 'Email is not registered.' : 'Email is already registered.' }}</span>
+					</div>
+					<br>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input [ngClass]="{
+								'is-invalid':formRegister.controls.txtPassword?.errors &&  formRegister.controls.txtPassword.touched,
+								 'is-valid' :!formRegister.controls.txtPassword?.errors
+								}" (blur)="checkPassword()" autocomplete="off" type="password" formControlName="txtPassword" class="form-control"
+						 name="txtPassword" placeholder="Your Password.">
+						<span class="glyphicon glyphicon-remove form-control-feedback" *ngIf="formRegister.controls.txtPassword?.errors && formRegister.controls.txtPassword.touched"></span>
+						<span class="invalid-feedback" *ngIf="formRegister.controls.txtPassword?.errors?.required && formRegister.controls.txtPassword.touched">
+							Please enter your password.</span>
+						<span class="invalid-feedback" *ngIf="(formRegister.controls.txtPassword?.errors?.minlength || formRegister.controls.txtPassword?.errors?.maxlength) && formRegister.controls.txtPassword.touched">
+							Please enter your password from 6 -> 20 letters.</span>
+					</div>
+					<br>
+					<div class="input-group" [ngClass]="{
+							'has-error': (formRegister.controls.txtRePassword?.errors || !matchPassword) && formRegister.controls.txtRePassword.touched,
+							'has-success': !formRegister.controls.txtRePassword?.errors
+							}">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input [ngClass]="{
+								'is-invalid': (formRegister.controls.txtRePassword?.errors || !matchPassword) && formRegister.controls.txtRePassword.touched,
+								'is-valid' :!formRegister.controls.txtPassword?.errors
+								}" (blur)="checkPassword()" autocomplete="off" type="password" formControlName="txtRePassword" class="form-control"
+						 name="txtRePassword" placeholder="Your Re-password.">
+						<span class="glyphicon glyphicon-remove form-control-feedback" *ngIf="formRegister.controls.txtRePassword?.errors && formRegister.controls.txtRePassword.touched"></span>
+						<span class="invalid-feedback" *ngIf="formRegister.controls.txtRePassword?.errors?.required && formRegister.controls.txtRePassword.touched">
+							Enter your Re-password..</span>
+						<span class="invalid-feedback" *ngIf="!matchPassword && formRegister.controls.txtRePassword.touched && !formRegister.controls.txtRePassword?.errors?.required">
+							Re-password didn't match. Try again.</span>
+					</div>
+					<br>
+					<div class="input-group has-feedback">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-map-marker"></i>
+							</span>
+						</div>
+						<input autocomplete="off" type="text" formControlName="txtAddress" class="form-control" name="txtAddress" placeholder="Please enter your address (not required).">
+					</div>
+					<br>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-phone"></i>
+							</span>
+						</div>
+						<input [ngClass]="{
+								'is-invalid': formRegister.controls.txtPhone?.errors && formRegister.controls.txtPhone.touched,
+								'is-valid': !formRegister.controls.txtPhone?.errors
+								}" autocomplete="off" type="text" formControlName="txtPhone" class="form-control" name="txtPhone" placeholder="Your Phone.">
+						<span class="invalid-feedback" *ngIf="formRegister.controls.txtPhone?.errors?.required && formRegister.controls.txtPhone.touched">
+							Please enter your phone.</span>
+						<span class="invalid-feedback" *ngIf="(formRegister.controls.txtPhone?.errors?.minlength || formRegister.controls.txtPhone?.errors?.maxlength) && formRegister.controls.txtPhone.touched">
+							Please enter your phone from 8 -> 11 numbers.</span>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<label>Birthday</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="fa fa-birthday-cake"></i>
+									</span>
+								</div>
+								<input [ngClass]="{
+										'is-invalid':formRegister.controls.txtBirthday?.errors && formRegister.controls.txtBirthday.touched,
+										'is-valid': !formRegister.controls.txtBirthday?.errors
+										}" type="date" name="txtBirthday" formControlName="txtBirthday" class="form-control">
+								<br>
+								<span class="invalid-feedback" *ngIf="formRegister.controls.txtBirthday?.errors?.required && formRegister.controls.txtBirthday.touched">
+									Please enter your birthday.</span>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" [class.hidden]="success_register">
+							<label>Gender</label>
+							<div class="radio">
+								<label class="m-right-10">
+									<input type="radio" name="rdoGender" value="Male" formControlName="rdoGender" checked/> Male
+								</label>
+								<label>
+									<input type="radio" name="rdoGender" value="Fermale" formControlName="rdoGender" /> Fermale
+								</label>
+							</div>
+						</div>
+					</div>
+					<br>
+					<button type="submit" [hidden]="success_register" 
+					[class.button-disabled]="formRegister.invalid || !matchPassword || !existingEmail"
+					[disabled]="formRegister.invalid || !matchPassword || !existingEmail" class="button">Register</button>
+				</form>
+			</div>
+		</div>
+		<div class="col-lg-6 col-12">
+			<div class="col-12 m-top-20" *ngIf="success_login">
+				<div class="{{msgClass}}">
+					{{msg}}
+				</div>
+			</div>
+			<div class="wrapper">
+				<h2 class="m-bottom-20">Login</h2>
+				<form [formGroup]="formLogin" (ngSubmit)="onLogin(formLogin.value)">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-envelope"></i>
+							</span>
+						</div>
+						<input autocomplete="off" type="text" formControlName="txtEmail" class="form-control" [ngClass]="{
+									'is-invalid': (formLogin.controls.txtEmail?.errors &&  formLogin.controls.txtEmail.touched) || !existingEmail,
+									 'is-valid' :!formLogin.controls.txtEmail?.errors
+									}" name="txtFullName" placeholder="Your Email.">
+						<span class="invalid-feedback" *ngIf="formLogin.controls.txtEmail?.errors?.required && formLogin.controls.txtEmail.touched">
+							Please enter your Email.</span>
+						<span class="invalid-feedback" *ngIf="!formLogin.controls.txtEmail?.errors?.required && formLogin.controls.txtEmail?.errors?.email && formLogin.controls.txtEmail.touched">
+							Email is invalid format.</span>
+					</div>
+					<br>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input [ngClass]="{
+								'is-invalid':formLogin.controls.txtPassword?.errors &&  formLogin.controls.txtPassword.touched,
+								 'is-valid' :!formLogin.controls.txtPassword?.errors
+								}" (blur)="checkPassword()" autocomplete="off" type="password" formControlName="txtPassword" class="form-control"
+						 name="txtPassword" placeholder="Your password.">
+						<span class="glyphicon glyphicon-remove form-control-feedback" *ngIf="formLogin.controls.txtPassword?.errors && formLogin.controls.txtPassword.touched"></span>
+						<span class="invalid-feedback" *ngIf="formLogin.controls.txtPassword?.errors?.required && formLogin.controls.txtPassword.touched">
+							Please enter your password.</span>
+					</div>
+					<br>
+					<button type="submit" class="button" [hidden]="success_login" type="submit" 
+					[class.button-disabled]="formLogin.invalid"
+					[disabled]="formLogin.invalid">Login</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

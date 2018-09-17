@@ -1,0 +1,90 @@
+@import '~src/sass/variables';
+@import '~src/sass/mixins';
+.services{
+    margin-top: 3rem;
+    &__item{
+        position: relative;
+        perspective: 150rem;
+        cursor: pointer;
+        height: 21.4rem;
+    }
+    &__slide{
+        position: absolute;
+        backface-visibility: hidden;
+        transition: all .8s;
+        width: 100%;
+        height: 21.4rem;
+        // overflow: hidden;
+    }
+    &__item:hover &__front{
+        transform: rotateY(-180deg);
+    }
+    &__item:hover &__back{
+        transform: rotateY(0deg);
+    }
+    &__image{
+        height: inherit;
+        width: 100%;   
+    }
+    &__back{
+        transform: rotateY(180deg);
+        width: 100%;
+        background-image: linear-gradient(to right bottom, #e2dede, #3e3c3c);
+    }
+    &__image{
+        width: 100%;
+        height: 100%;
+    }
+    &__button{
+        @include absCenter;
+        a{
+            color: $color-secondary;
+            display: inline-block;
+            background: $color-white;
+            padding: 1rem 1.5rem;
+            border-radius: 2rem;
+            position: relative;
+            transition: all 0.4s;
+            font-size: 1.2rem;
+            &::after{
+                content: "";
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: $color-white;
+                border-radius: 2rem;
+                z-index: -1;
+            }
+            &:hover{
+                transform: translateY(-0.3rem);
+                box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+                &::after{
+                background: $color-white;
+                    transform: scaleX(1.4) scaleY(1.6);
+                    opacity: 0;
+                }
+            }
+        }
+    }
+    &__info{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 4rem;
+    }   
+    &__title{
+        color: #282c38;
+        display: block;
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    &__text{
+        color: #333;
+        display: block;
+        font-size: 1.2rem;
+    }
+}

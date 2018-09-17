@@ -1,0 +1,58 @@
+@import '~src/sass/variables';
+.footer{
+    background-color: $color-secondary;
+    margin-top: 10rem;
+    &__top{
+        padding: 10rem 0 7rem;
+    }
+    &__bottom{
+        border-top: 1px dashed #999;
+        padding: 2rem 0;
+        color: $color-white;
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+    &__content{
+        &--logo{
+            margin-bottom: 3.5rem;
+            display: block;
+        }
+        &--contact{
+            color: $color-white;
+            font-size: 1.2rem;
+            li{
+                margin-bottom: 1rem;
+                i{
+                    font-size: 2rem;
+                    margin-right: 1rem;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    display: inline-block;
+                    text-align: center;
+                }
+            }
+        }
+        &--title{
+            color: $color-primary;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            line-height: 2.2rem;
+            margin-bottom: 3rem;
+            margin-top: 7px;
+            text-transform: uppercase;
+        }
+        &--list{
+            color: $color-white;
+            font-size: 1.2rem;
+            li{
+                margin-bottom: 1rem;
+                cursor: pointer;
+                transition: all .3s;
+                &:hover{
+                    color: $color-primary;
+                    transform: translateX(.5rem);
+                }
+            }
+        }
+    }
+}

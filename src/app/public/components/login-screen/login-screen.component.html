@@ -1,0 +1,42 @@
+<div class="login" [class.active]="toggleLogin$ | async">
+  <button class="login__button" (click)="closelogin()">
+    <i class="fa fa-times"></i>
+  </button>
+  <div class="login__form">
+    <div [class]="msgClass">
+      <strong>{{msg}}</strong>
+    </div>
+    <form [formGroup]="formLogin" (ngSubmit)="onLogin(formLogin.value)">
+      <input class="login__form-input" [ngClass]="{
+          'error': formLogin.controls.txtEmail?.errors && formLogin.controls.txtEmail.touched,
+          'success': !formLogin.controls.txtEmail?.errors }" formControlName="txtEmail" type="email" placeholder="Your email">
+      <div class="alert alert-danger m-top-5" *ngIf="formLogin.controls.txtEmail?.errors && formLogin.controls.txtEmail.touched">
+        <strong *ngIf="formLogin.controls.txtEmail?.errors?.required">Please enter your Email.</strong>
+        <strong *ngIf="!formLogin.controls.txtEmail?.errors?.required && formLogin.controls.txtEmail?.errors?.email">Email is invalid format.</strong>
+      </div>
+      <input class="login__form-input" [ngClass]="{
+          'error': formLogin.controls.txtPassword?.errors && formLogin.controls.txtPassword.touched,
+          'success': !formLogin.controls.txtPassword?.errors}" formControlName="txtPassword" type="{{ showhidePassword ? 'password' : 'text' }}"
+        placeholder="Your password">
+      <div class="alert alert-danger m-top-5" *ngIf="formLogin.controls.txtPassword?.errors?.required && formLogin.controls.txtPassword.touched">
+        <strong>Please enter your password.</strong>
+      </div>
+      <div class="checkbox m-top-10">
+        <label class="text-white">
+          <input type="checkbox" (click)="togglePassword()"> Show/ Hide Password
+        </label>
+      </div>
+      <div class=" m-top-10">
+        <a (click)="navigateToRegister()" class="text-white">Register</a>
+      </div>
+      <div class="login__form-group">
+        <button type="submit" class="login__form-button">
+          Login
+        </button>
+        <button class="login__form-button">
+          Forgot password
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

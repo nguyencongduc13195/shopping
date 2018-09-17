@@ -1,0 +1,57 @@
+@import '~src/sass/variables';
+.confirm{
+    &.active{
+        opacity: 1;
+        visibility: visible;
+    }
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    background-color: #3a3838d6;
+    opacity:0;
+    visibility: hidden;
+    font-size: 1.6rem;
+    transition: all .3s;
+    i{
+        font-size: 1.6rem;
+        right: 1rem;
+        position: absolute;
+        top: 1rem;
+        cursor: pointer;
+    }
+    &__wrap{
+        background: white;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all .3s;
+        &.active{
+            top: 30%;
+        }
+    }
+    &__content{
+        padding: 50px;
+        margin-bottom: 0;
+    }
+    &__button{
+        width: 50%;
+        float: left;
+        border: none;
+        padding: 20px;
+        color: $color-white;
+        transition: opacity .2s;
+        &--yes{
+            background: #fc7169;
+        }
+        &--no{
+            background: #b6bece
+        }
+        &:hover{
+            opacity: .5;
+        }
+    }
+}

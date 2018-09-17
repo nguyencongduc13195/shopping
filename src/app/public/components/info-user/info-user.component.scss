@@ -1,0 +1,151 @@
+@import '~src/sass/variables';
+.info{
+    font-size: 1.4rem;
+    .hide{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-10rem);
+    }
+    .show{
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        transition: all .3s;
+    }
+    &__btn{
+        color: $color-white !important;
+        font-size: 14px;
+        padding: .5rem 1.2rem;
+        background: $color-primary;
+        text-transform: capitalize;
+        &:hover{
+            background: $color-secondary;
+        }
+    }
+    &__account{
+        &-single{
+            margin-bottom: 1rem;
+            width: 45%;
+            float: left;
+            &:nth-child(odd){
+                margin-right: 5%
+            }
+        }
+        input:not([type=radio]){
+            display: block;
+            background: $color-grey-light;
+            border: 0 none;
+            height: 3.5rem;
+            padding: 8px 15px;
+            width: 100%;
+            outline: none;
+        }
+        &-btn{
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: $color-secondary;
+            color: $color-white;
+            border: 0;
+            padding: .8rem 2rem;
+            cursor: pointer;
+            margin: 2rem 0;
+            text-align: center;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            border-radius: .5rem;
+            display: inline-block;
+            &:hover{
+                background: $color-primary;
+            }
+            &-disabled{
+                cursor: not-allowed;
+                opacity: .6;
+                &:hover{
+                    background: $color-disabled-button;
+                    opacity: 1;
+                }
+            }
+        }
+        &-alert{
+            width: 95%;
+        }
+    }
+    &__orders{
+        thead{
+            background: #f6f6f6;
+            border-bottom: 1px solid #dee2e6;
+        }
+        td,th{
+            padding: 1rem;
+        }
+    }
+    &__detail{
+        border: 2px solid #dee2e6;
+    }
+    &__addresses{
+        padding: 2rem 0;
+        h4{
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 2.5rem;
+        }
+        input[type=button], input[type=text]{
+            padding: 1rem;
+            outline: none;
+            margin-top: 1rem;
+            border: none;
+            background: $color-grey-light;
+        }
+        input[type=button]{
+            background: $color-secondary;
+            color: $color-white;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        p{
+            margin-top: 1rem;
+        }
+        h4{
+            margin-bottom: 1rem;
+        }
+    }
+    &__list{
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        a{
+            padding: 1rem 0;
+            border-bottom: 1px solid $color-grey-light;
+            &:hover, &.active{
+                color: $color-primary;
+            }
+            &.active:after{
+                content: "\f105";
+                font-family: FontAwesome;
+                margin-left: .5rem;
+            }
+        }
+    }
+    &__content{
+        padding: 3rem;
+        border: 1px solid $color-grey-light;
+        position: relative;
+        min-height: 50rem;
+        &-abs{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+        }
+    }
+    &__title{
+        border-bottom: 1px solid $color-grey-light;
+        font-size: 2rem;
+        line-height: 2rem;
+        margin-bottom: 2.5rem;
+        padding: 1.5rem 0;
+        font-weight: 700;
+        font-family: 'bebasneue';
+        text-transform: uppercase;
+    }
+}

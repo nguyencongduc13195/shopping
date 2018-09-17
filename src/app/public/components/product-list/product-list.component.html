@@ -1,0 +1,148 @@
+<section class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="products__title">
+                    <ul class="nav">
+                        <li>
+                            <a class="active">PRODUCTS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="products__content">
+            <div id="products__list" class="carousel slide products__list">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <div class="row" *ngIf="products$ | async as product">
+                            <div class="col-lg-3 mb-5 mb-lg-0 col-6 products__single-item" *ngFor="let item of product.data">
+                                <div class="products__thumb">
+                                    <img [routerLink]="['/product',item?.slug]" class="products__image" src="https://apimean.herokuapp.com/api/product/images-detail/{{item?.image}}">
+                                    <span class="products__label products__label--new">New</span>
+                                    <div class="products__actions">
+                                        <a (click)="onLoveProductEvent(item)">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                        <a (click)="onQuickViewEvent(item)">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                        <a (click)="onAddCartEvent(item)">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="products__caption">
+                                    <h5 class="products__caption--name" [routerLink]="['/product',item?.slug]">
+                                        {{item?.name}}
+                                    </h5>
+                                    <div class="products__caption--pricebox">
+                                        <ng-container *ngIf="item?.price!==item?.promotion_price; else noSale">
+                                            <span class="quickview__pricebox--new">{{item?.promotion_price | currency:'USD':'symbol':'1.0-3'}}</span>
+                                            <span class="quickview__pricebox--old">{{item?.price | currency:'USD':'symbol':'1.0-3'}}</span>
+                                        </ng-container>
+                                        <ng-template #noSale>
+                                            <span class="quickview__pricebox--new">{{item?.price| currency:'USD':'symbol':'1.0-3'}}</span>
+                                        </ng-template>
+                                    </div>
+                                    <a class="products__caption--btn">
+                                        <i class="fa fa-shopping-cart"></i>&nbsp;
+                                        <span>Add To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row" *ngIf="products$ | async as product">
+                            <div class="col-lg-3 col-6 products__single-item" *ngFor="let item of product.data">
+                                <div class="products__thumb">
+                                    <img class="products__image" src="assets/img/product/12.jpg">
+                                    <span class="products__label products__label--new">New</span>
+                                    <div class="products__actions">
+                                        <a (click)="onLoveProductEvent(item)">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                        <a (click)="onQuickViewEvent()">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                        <a>
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="products__caption">
+                                    <h5 class="products__caption--name">Simple product 023</h5>
+                                    <div class="products__caption--pricebox">
+                                        <ng-container *ngIf="item?.price!==item?.promotion_price; else noSale">
+                                            <span class="quickview__pricebox--new">{{item?.promotion_price | currency:'USD':'symbol':'1.0-3'}}</span>
+                                            <span class="quickview__pricebox--old">{{item?.price | currency:'USD':'symbol':'1.0-3'}}</span>
+                                        </ng-container>
+                                        <ng-template #noSale>
+                                            <span class="quickview__pricebox--new">{{item?.price| currency:'USD':'symbol':'1.0-3'}}</span>
+                                        </ng-template>
+                                    </div>
+                                    <a class="products__caption--btn">
+                                        <i class="fa fa-shopping-cart"></i>&nbsp;
+                                        <span>Add To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row" *ngIf="products$ | async as product">
+                            <div class="col-lg-3 col-6 products__single-item" *ngFor="let item of product.data">
+                                <div class="products__thumb">
+                                    <img class="products__image" src="assets/img/product/13.jpg">
+                                    <span class="products__label products__label--new">New</span>
+                                    <div class="products__actions">
+                                        <a (click)="onLoveProductEvent(item)">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                        <a (click)="onQuickViewEvent()">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                        <a>
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="products__caption">
+                                    <h5 class="products__caption--name">Simple product 023</h5>
+                                    <div class="products__caption--pricebox">
+                                        <ng-container *ngIf="item?.price!==item?.promotion_price; else noSale">
+                                            <span class="quickview__pricebox--new">{{item?.promotion_price | currency:'USD':'symbol':'1.0-3'}}</span>
+                                            <span class="quickview__pricebox--old">{{item?.price | currency:'USD':'symbol':'1.0-3'}}</span>
+                                        </ng-container>
+                                        <ng-template #noSale>
+                                            <span class="quickview__pricebox--new">{{item?.price| currency:'USD':'symbol':'1.0-3'}}</span>
+                                        </ng-template>
+                                    </div>
+                                    <a class="products__caption--btn">
+                                        <i class="fa fa-shopping-cart"></i>&nbsp;
+                                        <span>Add To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="products__buttons">
+                    <button class="products__button products__button--prev" (click)="loadProducts()" (click)="decrease()">
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                    <button class="products__button products__button--next" (click)="loadProducts()" (click)="increase()">
+                        <i class="fa fa-angle-right"></i>
+                    </button>
+                </div>
+                <!-- <a class="carousel-control-prev" href="#products__list" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#products__list" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a> -->
+            </div>
+        </div>
+    </div>
+</section>

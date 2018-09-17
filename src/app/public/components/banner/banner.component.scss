@@ -1,0 +1,51 @@
+@import "~src/sass/variables";   
+.banner{
+    padding-top: 10rem;
+    a{
+        position: relative;
+        display: block;
+        &::after{
+            content: "";
+            background: rgba(230, 230, 230, 0.4117647059);
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            transition: all .3s ease-in-out;
+        }
+    }
+    &:hover a::after{
+        opacity: 1;
+    }
+    &__text{
+        text-transform: uppercase;
+        color: $color-secondary;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5%;
+        font-weight: 500;
+        &--1{
+            display: block;
+            color: $color-primary;
+            font-size: 3rem;
+            letter-spacing: 0.5px;
+        }
+        &--2{
+            display: block;
+            font-size: 1.4rem;
+            color: $color-secondary;
+        }
+        &--link{
+            display: inline-block;
+            background: $color-primary;
+            font-size: 1.2rem;
+            color: $color-white;
+            padding: 0 2rem;
+            line-height: 3.6rem;
+            margin-top: 1rem;
+        }
+    }
+}

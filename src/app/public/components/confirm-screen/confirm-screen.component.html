@@ -1,0 +1,8 @@
+<div class="confirm" [class.active]="showConfirm$ | async">
+    <div class="confirm__wrap" [class.active]="showConfirm$ | async">
+        <i class="fa fa-times" (click)="closeScreen()"></i>
+        <p class="confirm__content">Are you sure you want to delete this element?</p>
+        <button class="confirm__button confirm__button--yes" (click)="agreeConfirm()">YES</button>
+        <button class="confirm__button confirm__button--no" (click)="closeScreen()">NO</button>
+    </div>
+</div>

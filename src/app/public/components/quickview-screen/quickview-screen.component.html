@@ -1,0 +1,84 @@
+<div class="quickview" [class.active]="showQuickViewScreen$ | async">
+  <div class="row mx-2 mx-sm-0" *ngIf="quickViewProduct">
+    <div class="quickview__image offset-lg-3 col-lg-3 offset-sm-1 col-md-5 col-sm-5 col-12">
+      <div class="quickview__image--main">
+        <img src="https://apimean.herokuapp.com/api/product/images-detail/{{mainImage}}"
+            class="quickview__img">
+      </div>
+      <div class="quickview__image--list">
+        <div class="row">
+          <div class="col-4" 
+                *ngFor="let item of quickViewProduct?.image_Detail" 
+                (mouseenter)="changeMainImage(item)"
+                (mouseleave)="setDefault()"
+          >
+            <img src="https://apimean.herokuapp.com/api/product/images-detail/{{item}}" class="quickview__img quickview__img--1" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-5 quickview__info">
+      <div class="quickview__text">
+        <h2>{{quickViewProduct?.name}}
+          <i class="fa fa-times" (click)="onCloseQuickView()"></i>
+        </h2>
+        <div class="quickview__star">
+          <ul class="d-flex">
+            <li>
+              <i class="fa fa-star"></i>
+            </li>
+            <li>
+              <i class="fa fa-star"></i>
+            </li>
+            <li>
+              <i class="fa fa-star"></i>
+            </li>
+            <li>
+              <i class="fa fa-star"></i>
+            </li>
+            <li>
+              <i class="fa fa-star"></i>
+            </li>
+          </ul>
+        </div>
+        <div class="quickview__pricebox">
+          <span class="quickview__pricebox--new">$25.50</span>
+          <span class="quickview__pricebox--old">$30.50</span>
+        </div>
+        <ul class="quickview__list">
+          <li>Brand:
+            <a href="">Hewlett-Packard</a>
+          </li>
+          <li>Product Code: Digital</li>
+          <li>Reward Points: 1000</li>
+          <li>Availability:
+            <span>In stock</span>
+          </li>
+        </ul>
+        <div class="quickview__color">
+          <h3>Available Color</h3>
+          <ul>
+            <li *ngFor="let item of quickViewProduct?.color" 
+              (click)="selectedColorEvent(item)"
+              [class.active]="selectedColorArray.indexOf(item)>-1"  
+            >
+              <span [ngStyle]="{'background-color': item}"></span>
+            </li>
+          </ul>
+        </div>
+        <div class="quickview__quantity">
+          <label for="">Quantity</label>
+          <input type="number" value="1">
+        </div>
+        <button class="quickview__add-to-cart">
+          <i class="fa fa-shopping-cart"></i> Add To Cart
+        </button>
+        <div class="quickview__tags">
+          Tags:
+          <a href="">Movado,</a>
+          <a href="">Omega</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

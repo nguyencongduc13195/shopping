@@ -1,0 +1,96 @@
+<section class="cart p-top-100 p-bottom-100">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<form action="" class="cart__table">
+					<div class="cart__table-wrap">
+						<table class="cart__table-content">
+							<thead>
+								<tr>
+									<th>remove</th>
+									<th>images</th>
+									<th>Product</th>
+									<th>Color - Size</th>
+									<th>Unit Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let item of cart">
+									<td>
+										<a (click)="removeItem(item)">
+											<i class="fa fa-times"></i>
+										</a>
+									</td>
+									<td>
+										<a [routerLink]="['/product',item?.product?.slug]">
+											<img class="cart__image" src="https://apimean.herokuapp.com/api/product/images-detail/{{item?.product?.image}}">
+										</a>
+									</td>
+									<td>
+										<a [routerLink]="['/product',item?.product?.slug]">{{item?.product?.name}}</a>
+									</td>
+									<td>
+										{{item?.color}} - {{item?.size}}
+									</td>
+									<td>
+										<span *ngIf="item?.product?.price !== item?.product?.promotion_price">
+											{{item?.product?.promotion_price |currency:'USD':'symbol':'1.0-3' }}
+										</span>
+										<span *ngIf="item?.product?.price === item?.product?.promotion_price">
+											{{item?.product?.price |currency:'USD':'symbol':'1.0-3' }}
+										</span>
+									</td>
+									<td>
+										<i class="fa fa-minus-square" (click)="minusQuantity(item)"></i>
+										<input readonly class="quantity" type="text" [value]="item?.quantity">
+										<i class="fa fa-plus-square" (click)="plusQuantity(item)"></i>
+									</td>
+									<td>
+										<span *ngIf="item?.product?.price !== item?.product?.promotion_price">
+											{{(item?.product?.promotion_price * item?.quantity) |currency:'USD':'symbol':'1.0-3' }}
+										</span>
+										<span *ngIf="item?.product?.price === item?.product?.promotion_price">
+											{{(item?.product?.price * item?.quantity) |currency:'USD':'symbol':'1.0-3' }}
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row cart__table-coupon">
+						<div class="col-12 d-flex justify-content-between">
+							<div class="cart__table-coupon-left">
+								<input type="text" placeholder="Coupon Code">
+								<input type="button" value="Apply Coupon">
+							</div>
+							<div class="cart__table-coupon-right">
+								<input type="button" value="UPDATE CART">
+							</div>
+						</div>
+					</div>
+					<div class="row cart__table-totals">
+						<div class="col-md-5 ml-auto">
+							<div class="cart__table-totals-page">
+								<h2>Cart Totals</h2>
+								<ul>
+									<li>Subtotal
+										<span>{{totalPrice|currency:'USD':'symbol':'1.0-3'}}</span>
+									</li>
+									<li>VAT
+										<span>{{(totalPrice/100*10)|currency:'USD':'symbol':'1.0-3'}}</span>
+									</li>
+									<li>Total
+										<span>{{totalPrice+(totalPrice/100*10)|currency:'USD':'symbol':'1.0-3'}}</span>
+									</li>
+								</ul>
+								<a [routerLink]="['/checkout']">Proceed to checkout</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

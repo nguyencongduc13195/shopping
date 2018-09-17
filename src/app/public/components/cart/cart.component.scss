@@ -1,0 +1,120 @@
+@import '~src/sass/variables';
+
+.cart{
+    &__image{
+        width: 8rem;
+        height: 10rem;
+    }
+    &__table{
+        &-totals{
+            padding-top: 5rem;
+            &-page{
+                h2{
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                }
+                ul{
+                    border: 1px solid #ddd;
+                }
+                li{
+                    padding: 1rem 3rem;
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    border-bottom: 1px solid #ddd;
+                }
+                span{
+                    float: right;
+                }
+                a{
+                    display: inline-block;
+                    padding: 1rem 2rem;
+                    background: $color-secondary;
+                    color: $color-white;
+                    font-size: 1.4rem;
+                    text-transform: capitalize;
+                    border-radius: .5rem;
+					margin-top: 2rem;
+					transition: all .3s;
+					&:hover{
+						background-color: $color-primary;
+					}
+                }
+            }
+        }
+        &-coupon{
+            &-left{
+                input{
+                    margin-right: .5rem;
+                }
+            }
+            margin-top: 5rem;
+            input[type=text]{
+                width: 12rem;
+                background-color: $color-white;
+                text-transform: capitalize;
+                border: 1px solid $color-secondary;
+            }
+            input[type=button]{
+                background-color: $color-secondary;
+                color: $color-white;
+                border: 1px solid $color-secondary;
+                padding-left: 2.5rem;
+                padding-right: 2.5rem;
+                cursor: pointer;
+                transition: all .4s ease-in-out;
+                &:hover{
+                    background-color: $color-primary;
+                    border: 1px solid  $color-primary;
+                }
+            }
+            input{
+                padding: 1rem;
+                font-size: 1.3rem;
+                text-transform: uppercase;
+                outline: none;
+            }
+        }
+        &-wrap{
+            overflow-x: auto;
+        }
+        &-content{
+            font-size: 1.5rem;
+            background-color: $color-white;
+            border: 1px solid #ebebeb;
+            width: 100%;
+            text-align: center;
+            a{
+                color: $color-secondary;
+            }
+            i{
+                font-size: 2rem;
+            }
+            thead{
+                background-color: #f6f6f6;
+            }
+            th{
+                border-top: medium none;
+                font-size: 1.5rem;
+                font-weight: 500;
+                padding: 2rem 1rem;
+                text-align: center;
+                text-transform: capitalize;
+            }
+            td{
+                border-bottom: 1px solid #ebebeb;
+                border-right: 1px solid #ebebeb;
+                border-top: medium none;
+                padding: 2rem 1rem;
+            }
+            input{
+                width: 5rem;
+                text-align: center;
+            }
+            input.quantity{
+                border: none;
+            }
+        }
+    }
+}

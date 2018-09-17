@@ -1,0 +1,28 @@
+<div class="search" [class.active]="showSearchScreen">
+    <button class="search__button" (click)="closeSearch()">
+        <i class="fa fa-times"></i>
+    </button>
+    <div class="search__form" [class.active]="key.value.length>0">
+        <form>
+            <input class="search__form--input" type="text" #key placeholder="Search entire store here ...">
+            <button class="search__form--button" (click)="searchEvent(key.value)">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        <div class="search__list" [class.active]="productsSearch.length > 0">
+            <div class="search__item" *ngFor="let item of productsSearch">
+                <div class="search__item-image">
+                    <img src="assets/img/product/1.jpg" alt="">
+                </div>
+                <div class="search__item-info">
+                    <h2>{{item?.name}}</h2>
+                    <span class="search__item-info-new-price">$25</span>
+                    <span class="search__item-info-old-price">$25</span>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-danger m-top-10" role="alert">
+            <span #emptyProduct>{{error}}</span>
+        </div>
+    </div>
+</div>

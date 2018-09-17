@@ -1,0 +1,178 @@
+<ng-container *ngIf="product; else none">
+  <section class="detail p-top-100" #scrollVar>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <div class="detail-wrap">
+            <div class="detail-img">
+              <a>
+                <img [routerLink]="['/product',item?.slug]" src="https://apimean.herokuapp.com/api/product/images-detail/{{product?.image}}">
+              </a>
+            </div>
+            <div class="detail-list">
+              <div class="detail-item" *ngFor="let item of product?.image_Detail">
+                <a>
+                  <img [routerLink]="['/product',item?.slug]" src="https://apimean.herokuapp.com/api/product/images-detail/{{ item }}">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="quickview__text">
+            <h2>{{product?.name}}</h2>
+            <div class="quickview__star">
+              <ul class="d-flex">
+                <li *ngIf="product?.averageRating<1">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="product?.averageRating>=1">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="product?.averageRating<2 && product?.averageRating >1">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="product?.averageRating>=2">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="product?.averageRating<3 && product?.averageRating >2">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="product?.averageRating>=3">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="product?.averageRating<4 && product?.averageRating >3">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="product?.averageRating>=4">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="product?.averageRating<5 && product?.averageRating >4"> 
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="product?.averageRating==5">
+                  <i class="fa fa-star"></i>
+                </li>
+              </ul>
+            </div>
+            <div class="quickview__pricebox">
+              <ng-container *ngIf="product?.price!==product?.promotion_price; else noSale">
+                <span class="quickview__pricebox--new">{{product?.promotion_price | currency:'USD':'symbol':'1.0-3'}}</span>
+                <span class="quickview__pricebox--old">{{product?.price | currency:'USD':'symbol':'1.0-3'}}</span>
+              </ng-container>
+              <ng-template #noSale>
+                <span class="quickview__pricebox--new">{{product?.price| currency:'USD':'symbol':'1.0-3'}}</span>
+              </ng-template>
+            </div>
+            <ul class="quickview__list">
+              <li>Brand:
+                <span class="quickview__list-brand">{{product?.brand?.name}}</span>
+              </li>
+              <li>Product Code: Digital</li>
+              <li>Availability:
+                <span>In stock</span>
+              </li>
+            </ul>
+            <div class="quickview__color">
+              <h3>Available Color</h3>
+              <ul>
+                <li *ngFor="let item of product?.color" (click)="selectedColorEvent(item)" [class.active]="selectedColorArray.indexOf(item)>-1">
+                  <span [ngStyle]="{'background-color': item}"></span>
+                </li>
+              </ul>
+            </div>
+            <div class="quickview__size">
+              <h3>Available Size</h3>
+              <ul>
+                <li *ngFor="let item of product?.size" (click)="selectedSizeEvent(item)" [class.active]="selectedSizeArray.indexOf(item)>-1">
+                  <span class="text-center">{{item}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="quickview__quantity">
+              <label>Quantity</label>
+              <input type="number" value="1" #qty min="1">
+            </div>
+            <button class="quickview__add-to-cart" (click)="addCart(product, qty.value)">
+              <i class="fa fa-shopping-cart"></i> Add To Cart
+            </button>
+            <div class="quickview__tags">
+              Tags:&nbsp;
+              <a [routerLink]="['/']" *ngFor="let item of product?.tag_array">{{item}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="detail__menu">
+            <ul>
+              <li (click)="viewMode = 'des'" [class.active]="viewMode === 'des'">
+                <a>Description</a>
+              </li>
+              <li (click)="viewMode = 'reviews'" [class.active]="viewMode === 'reviews'">
+                <a>Reviews ({{reviews.length}})</a>
+              </li>
+            </ul>
+          </div>
+          <div class="detail__content">
+            <div class="detail__content-description" *ngIf="viewMode === 'des'">
+						  <p class="content" [innerHTML]="product?.body"></p>
+            </div>
+            <div class="detail__content-reviews" *ngIf="viewMode === 'reviews'">
+              <div class="detail__content-reviews-list">
+                <div class="detail__content-reviews-item" *ngFor="let item of reviews">
+                  <div class="detail__content-reviews-user">
+                    <span>
+                      <strong>{{item?.full_name}}</strong>
+                    </span>
+                    <span class="pull-right">{{item?.created_at | date:'dd/MM/yyyy'}}</span>
+                  </div>
+                  <div class="detail__content-reviews-comment">
+                    {{item?.comment}}
+                  </div>
+                  <div class="detail__content-reviews-rating">
+                    <i class="fa fa-star m-right-5" *ngIf="item?.rating>=1"></i>
+                    <i class="fa fa-star m-right-5" *ngIf="item?.rating>=2"></i>
+                    <i class="fa fa-star m-right-5" *ngIf="item?.rating>=3"></i>
+                    <i class="fa fa-star m-right-5" *ngIf="item?.rating>=4"></i>
+                    <i class="fa fa-star" *ngIf="item?.rating==5"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="detail__content-reviews-new">
+                <form (ngSubmit)="onSubmit()">
+                  <h2 class="text-uppercase m-bottom-15">Write a review</h2>
+                  <div class="row">
+                    <div class="col-12 form-group">
+                      <label>Your Name</label>
+                      <input type="text" [(ngModel)]="name" readonly [ngModelOptions]="{standalone: true}" class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                      <label>Your Review</label>
+                      <textarea class="form-control" [(ngModel)]="textarea" [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                    <div class="col-12 form-group">
+                      <label>Rating</label>
+                      <span>Bad</span>
+                      <input type="radio" [(ngModel)]="rating" [ngModelOptions]="{standalone: true}" 
+                        [checked]="item === rating" [value]="item"
+                        *ngFor="let item of stars">
+                      <span>Good</span>
+                    </div>
+                  </div>
+                  <button type="submit">Continue</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>
+<ng-template #none>
+  <section class="text-center">
+    <img src="assets/img/Loading_icon.gif" alt="">
+  </section>
+</ng-template>

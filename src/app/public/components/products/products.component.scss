@@ -1,0 +1,199 @@
+@import '~src/sass/variables';
+.products{
+    padding-top: 10rem;
+    &__single-item{
+        height: 40rem;
+    }
+    &__list{
+        position: relative;
+    }
+    &__title{
+        font-family: "bebasneue";
+        margin-bottom: 3rem;
+    }
+    &__image{
+        width: 100%;
+        outline: none;
+        height: 100%;
+    }
+    &__thumb{
+        position: relative;
+        height: 75%;
+        cursor: pointer;
+    }
+    &__label{
+        position: absolute;
+        top: 1rem;
+        z-index: 1;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background-color: $color-secondary;
+        text-align: center;
+        color: $color-white;
+        line-height: 5rem;
+        font-size: 1.4rem;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);  
+        &--new{
+            right: 1rem;
+        } 
+        &--sale{
+            left: 1rem;
+            background-color: $color-primary;
+        }     
+    }
+    &__actions{
+        position: absolute;
+        z-index: 3;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        opacity: 0;
+        visibility: hidden;
+        a{
+            width: 4rem;
+            margin-right: .5rem;
+            height: 4rem;
+            border-radius: 50%;
+            background-color: $color-white;
+            display: inline-block;
+            color: $color-secondary;
+            line-height: 4rem;
+            text-align: center;
+            font-size: 1.6rem;
+            &:hover{
+                background-color: $color-primary;
+                color: $color-white;
+            }
+        }
+        i{
+            transform: rotateY(-90deg) scale(.8);
+            transition: all .5s;
+        }
+    }
+    &__button{
+        position: absolute;
+        top: 50%;
+        border: none;
+        transform: translateX(-50%);
+        width: 4rem;
+        height: 4rem;
+        opacity: 0;
+        z-index: 3;
+        visibility: hidden;
+        transition: all .4s;
+        cursor: pointer;
+        &:hover{
+            background: $color-primary;
+            color: $color-white;
+        }
+        i{
+            font-size: 1.8rem;
+        }
+        &--next{
+            left: 110%;
+        }   
+        &--prev{
+            left: -10%;
+        }
+    }
+    &__caption{
+        padding-top: 1.5rem;
+        position: relative;
+        &--name{
+            color: $color-secondary;
+            font-size: 1.5rem;
+            height: 5rem;
+            cursor: pointer;
+            outline: none;
+        }
+        &--pricebox{
+            margin-top: 1rem;
+        }
+        &--newprice{
+            font-size: 1.6rem;
+            color: $color-primary;
+            font-weight: 600;
+            margin-right: .5rem;
+        }
+        &--oldprice{
+            font-size: 1.4rem;
+            text-decoration: line-through;
+        }
+        &--btn{
+            color: $color-primary;
+            position: absolute;
+            bottom: 0;
+            left: -4rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all .4s;
+            i{
+                font-size: 1.8rem;
+                margin-right: .5rem;
+            }
+            span{
+                font-size: 1.6rem;
+            }
+            &:hover{
+                color: $color-primary;
+            }
+        }
+    }
+    &__thumb:hover &__actions{
+        opacity: 1;
+        visibility: visible;
+    }
+    &__thumb:hover &__actions i{
+        transform: rotateY(0) scale(1);
+    }
+    &__single-item:hover &__caption--btn{
+        opacity: 1;
+        visibility: visible;
+        left: 0;
+    }
+    &__single-item:hover &__caption--pricebox{
+        opacity: 0;
+        visibility: hidden;
+    }
+    &__thumb:hover &__button{
+        opacity: 1;
+        visibility: visible;
+    }
+    &__list:hover &__button{
+        opacity: 1;
+        visibility: visible;
+    }
+    &__list:hover &__button--next{
+        left: 100%;
+    }
+    &__list:hover &__button--prev{
+        left: 0;
+    }
+    .nav{
+        li{
+            margin-right: 2rem;
+            a{
+                color: $color-secondary;
+                font-family: 'Sawarabi Gothic', sans-serif;
+                font-weight: bold;
+                font-size: 1.6rem;
+                letter-spacing: 0.025em;
+                display: inline-block;
+                transition: all .3s;
+                &:hover, &.active{
+                    color: $color-primary;
+                }
+                &.products__icon{
+                    &::after{
+                        content: "//";
+                        display: inline-block;
+                        margin-left: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}

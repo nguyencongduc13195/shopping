@@ -1,0 +1,48 @@
+<section class="related p-top-100 p-bottom-100">
+    <div class="container">
+        <div class="row m-bottom-50">
+            <div class="col text-center text-uppercase">
+                <h4>our products</h4>
+                <h2>Related Products</h2>
+            </div>
+        </div>
+        <div class="products__content">
+            <div id="products__list" class="carousel slide products__list">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-lg-3 col-6 products__single-item" *ngFor="let item of relatedProduct">
+                                <div class="products__thumb">
+                                    <img (click)="scroolTop()" [routerLink]="['/product',item?.slug]" class="products__image" 
+                                    src="https://apimean.herokuapp.com/api/product/images-detail/{{item?.image}}">
+                                    <div class="products__actions">
+                                        <a href="">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                        <a href="">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                        <a (click)="addCart(item)">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="products__caption">
+                                    <h5 class="products__caption--name">{{item?.name}}</h5>
+                                    <div class="products__caption--pricebox">
+                                        <span class="products__caption--newprice">$99.00</span>
+                                        <span class="products__caption--oldprice">$110.00</span>
+                                    </div>
+                                    <a href="" class="products__caption--btn">
+                                        <i class="fa fa-shopping-cart"></i>&nbsp;
+                                        <span>Add To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

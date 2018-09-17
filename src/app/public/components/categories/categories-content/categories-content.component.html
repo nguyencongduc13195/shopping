@@ -1,0 +1,136 @@
+<app-categories-topbar (viewModeConnector)="getViewMode($event)"></app-categories-topbar>
+<ng-container *ngIf="loaded; else notDone">
+  <div class="content__products content__products--grid" [class.d-none]="viewMode === 'list'" *ngIf="product.length>0">
+    <div class="row">
+      <div class="col-4" *ngFor="let item of product">
+        <div class="content__products-single-item m-top-30">
+          <div class="content__products-thumb">
+            <img class="content__products-image" [routerLink]="['/product', item?.slug]" src="https://apimean.herokuapp.com/api/product/images-detail/{{item?.image}}">
+            <span *ngIf="item?.price!==item?.promotion_price" class="content__products-label content__products-label--sale">Sale</span>
+            <div class="content__products-actions">
+              <a>
+                <i class="fa fa-heart"></i>
+              </a>
+              <a>
+                <i class="fa fa-search"></i>
+              </a>
+              <a (click)="addToCart(item)">
+                <i class="fa fa-shopping-cart"></i>
+              </a>
+            </div>
+          </div>
+          <div class="content__products-caption">
+            <h5 class="content__products-caption-name">{{item?.name}}</h5>
+            <div class="content__products-caption-pricebox">
+              <ng-container *ngIf="item?.price!==item?.promotion_price; else noSale">
+                <span class="quickview__pricebox--new">{{item?.promotion_price | currency:'USD':'symbol':'1.0-3'}}</span>
+                <span class="quickview__pricebox--old">{{item?.price | currency:'USD':'symbol':'1.0-3'}}</span>
+              </ng-container>
+              <ng-template #noSale>
+                <span class="quickview__pricebox--new">{{item?.price| currency:'USD':'symbol':'1.0-3'}}</span>
+              </ng-template>
+            </div>
+            <a class="content__products-caption-btn" (click)="addToCart(item)">
+              <i class="fa fa-shopping-cart"></i>&nbsp;
+              <span>Add To Cart</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content__products content__products--list" [class.d-none]="viewMode === 'grid'" *ngIf="product.length>0">
+    <div class="row">
+      <div class="col">
+        <div class="row content__products-wrap" *ngFor="let item of product">
+          <div class="col-lg-4">
+            <div class="content__products-thumb">
+              <img class="content__products-image" [routerLink]="['/product', item?.slug]" src="https://apimean.herokuapp.com/api/product/images-detail/{{item?.image}}">
+              <span class="content__products-label content__products-label--new">New</span>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="content__products-caption">
+              <h4 [routerLink]="['/product', item?.slug]">{{item?.name}}</h4>
+              <!-- <ul class="d-flex content__products-star">
+                <li *ngFor="let star of stars">
+                  <i class="fa fa-star" [class.active]="star === item?.averageRating"></i>
+                  <i class="fa fa-star-half"></i>
+                </li>
+              </ul> -->
+              <ul class="d-flex">
+                <li *ngIf="item?.averageRating<1">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="item?.averageRating>=1">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="item?.averageRating<2 && item?.averageRating >1">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="item?.averageRating>=2">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="item?.averageRating<3 && item?.averageRating >2">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="item?.averageRating>=3">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="item?.averageRating<4 && item?.averageRating >3">
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="item?.averageRating>=4">
+                  <i class="fa fa-star"></i>
+                </li>
+                <li *ngIf="item?.averageRating<5 && item?.averageRating >4"> 
+                  <i class="fa fa-star-half"></i>
+                </li>
+                <li *ngIf="item?.averageRating==5">
+                  <i class="fa fa-star"></i>
+                </li>
+              </ul>
+              <div class="content__products-pricebox quickview__pricebox">
+                <ng-container *ngIf="item?.price!==item?.promotion_price; else noSale">
+                  <span class="quickview__pricebox--new">{{item?.promotion_price | currency:'USD':'symbol':'1.0-3'}}</span>
+                  <span class="quickview__pricebox--old">{{item?.price | currency:'USD':'symbol':'1.0-3'}}</span>
+                </ng-container>
+                <ng-template #noSale>
+                  <span class="quickview__pricebox--new">{{item?.price| currency:'USD':'symbol':'1.0-3'}}</span>
+                </ng-template>
+              </div>
+              <p class="content__products-description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident a praesentium nesciunt odio quam hic aliquam
+                est adipisci, libero aperiam cumque voluptates obcaecati corporis ut consequatur. Eveniet itaque atque voluptatum.</p>
+              <ul class="content__products-list">
+                <li class="content__products-list-item content__products-list-item--1" (click)="addToCart(item)">
+                  <a>
+                    <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                </li>
+                <li class="content__products-list-item content__products-list-item--2">
+                  <a>
+                    <i class="fa fa-heart"></i>
+                  </a>
+                </li>
+                <li class="content__products-list-item content__products-list-item--2">
+                  <a>
+                    <i class="fa fa-shopping-cart"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #notDone>
+  <div class="text-center">
+    <img src="assets/img/Loading_icon.gif" alt="">
+  </div>
+  <div class="alert alert-danger" *ngIf="product.length<=0">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Empty product</strong>
+  </div>
+</ng-template>
+<app-categories-pagination></app-categories-pagination>

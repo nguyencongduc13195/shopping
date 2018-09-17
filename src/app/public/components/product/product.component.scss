@@ -1,0 +1,122 @@
+@import "~src/sass/variables";   
+
+.detail{
+    &-list{
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem 0;
+    }
+    &-img{
+        img{
+            width: 100%;
+            height: 50rem;
+            border: 1px solid $color-secondary;
+        }
+    }
+    &-item{
+        margin: 0 1rem;
+        width: 30%;
+        img{
+            height: 20rem;
+            width: 100%;
+            border: 1px solid $color-secondary;
+        }
+        &:first-child{
+            margin-left: 0;
+        }
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+    &__content{
+        &-description{
+            p{
+                font-size: 1.3rem;
+            }
+        }
+        &-reviews{
+            &-list{
+                font-size: 1.3rem;
+            }
+            &-item{
+                font-size: 1.4rem;
+                border: 1px solid #dee2e6;
+                &:not(:last-child){
+                    margin-bottom: 1rem;
+                }
+            }
+            &-comment,&-user{
+                padding: 1rem;
+            }
+            &-rating{
+                padding: 0 1rem 1rem 1rem;
+            }
+            &-user{
+                background: rgba(0,0,0,.05);
+            }
+            &-new{
+                margin-top: 2rem;
+                font-size: 1.3rem;
+                label{
+                    margin-right: .5rem;
+                    &::before{
+                        content: "* ";
+                        color: red;
+                        font-weight: bold;
+                    }
+                }
+                input[type=text], textarea{
+                    font-size: 1.3rem;
+                    padding: 1rem 1rem;
+                }
+                input[type=text]{
+                    padding: 2rem 1rem;
+                }
+                input[type=radio]{
+                    margin: 0 .3rem;
+                }
+                button{
+                    border: none;
+                    padding: 1rem 3rem;
+                    color: $color-white;
+                    background: $color-primary;
+                    border-radius: .5rem;
+                    transition: all .3s ease-in;
+                    &:hover{
+                        background: $color-secondary;
+                    }
+                }
+            }
+        }
+    }
+    &__menu{
+        margin: 10rem 0 3rem;
+        padding: 1.2rem 0;
+        background-color: #f5f7fa;
+        ul{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0;
+            li{
+                cursor: pointer;
+                margin-right: 1rem;
+                &.active{
+                    color: $color-primary;
+                }
+                color: $color-secondary;
+                font-size: 1.6rem;
+                display: inline-block;
+                text-transform: uppercase;
+                padding: 1rem 2rem;
+                font-weight: 600;
+                &:hover{
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}
+
+.fa.fa-star,.fa.fa-star-half{
+    color: $color-primary;
+}

@@ -1,0 +1,5 @@
+<app-navbar></app-navbar>
+<app-breadcrumb></app-breadcrumb>
+<app-product-content [user]="user" [product]="product" [scroll]="scroll"></app-product-content>
+<app-related [categoryId]="product?._id" (scroll)="getScroll($event)"></app-related>
+<app-footer-2></app-footer-2>

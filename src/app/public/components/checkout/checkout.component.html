@@ -1,0 +1,13 @@
+<app-navbar></app-navbar>
+<app-breadcrumb></app-breadcrumb>
+<div class="container p-bottom-100 p-top-100">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <app-checkout-info (checkout_info)="getCheckOutInfo($event)"></app-checkout-info>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <app-checkout-review [cartItems]="cartItems" [totalPrice]="totalPrice"></app-checkout-review>
+        </div>
+      </div>
+</div>
+<app-footer-2></app-footer-2>
